@@ -3,12 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Outsource-dashboard</title>
+    <title>Outsource Dashboard</title>
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-    <h1> Начало проекта </h1>
-    <p>Сегодня: <span id="current-date"></span></p>
-    <script src="js/script.js"></script>
+    <button id="open-button" class="hidden">→</button>
+    <div id="side-panel">
+        <button class="toggle-button" id="toggle-button">☰</button>
+        <div class="month-selector">
+            <h3>Period</h3>
+            <select id="month-select" class="month-select">
+                <option value="0">January</option>
+                <option value="1">February</option>
+                <option value="2">March</option>
+                <option value="3">April</option>
+                <option value="4">May</option>
+                <option value="5">June</option>
+                <option value="6">July</option>
+                <option value="7">August</option>
+                <option value="8">September</option>
+                <option value="9">October</option>
+                <option value="10">November</option>
+                <option value="11">December</option>
+            </select>
+            <select id="year-select" class="year-select">
+                <option value="2025">2025</option>
+                <option value="2026" selected="">2026</option>
+                <option value="2027">2027</option>
+            </select>
+        </div>
+        <nav>
+            <a href="#" id="nav-projects" class="nav-item active">Projects</a>
+            <a href="#" id="nav-employees" class="nav-item">Employees</a>
+        </nav>
+    </div>
+    <div id="main-content">
+        <div id="projects-content">
+            <div class="content-header">
+                <h1>Projects</h1>
+                <div>
+                    <button id="add-project-btn" class="add-btn">+ Add Project</button>
+                    <button id="seed-data-btn" class="add-btn" style="margin-left: 10px;">Seed Data</button>
+                </div>
+            </div>
+            <div id="project-filters-container" class="filters-container"></div>
+            <table id="projects-table">
+                <thead>
+                    <tr>
+                        <th class="sortable filterable" data-sort="companyName" data-filter="companyName">
+                            Company Name
+                            <span class="sort-icon">⇅</span>
+                            <span class="filter-icon" title="Filter">⌕</span>
+                        </th>
+                        <th class="sortable filterable" data-sort="projectName" data-filter="projectName">
+                            Project Name
+                            <span class="sort-icon">⇅</span>
+                            <span class="filter-icon" title="Filter">⌕</span>
+                        </th>
+                        <th class="sortable" data-sort="budget">Budget <span class="sort-icon">⇅</span></th>
+                        <th class="sortable" data-sort="employeeCapacity">Employee Capacity <span class="sort-icon">⇅</span></th>
+                        <th>Employees</th>
+                        <th class="sortable" data-sort="estimatedIncome">Estimated Income <span class="sort-icon">⇅</span></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table><div id="projects-total-income" class="total-income-info"><strong>Total Estimated Income:</strong> <span class="total-amount positive-income">$0.00</span></div>
+        </div>
+        <div id="employees-content" class="hidden">
+            <div class="content-header">
+                <h1>Employees</h1>
+                <button id="add-employee-btn" class="add-btn">+ Add Employee</button>
+            </div>
+            <div id="employee-filters-container" class="filters-container"></div>
+            <table id="employees-table">
+                <thead>
+                    <tr>
+                        <th class="sortable filterable" data-sort="name" data-filter="name">
+                            Name
+                            <span class="sort-icon">⇅</span>
+                            <span class="filter-icon" title="Filter">⌕</span>
+                        </th>
+                        <th class="sortable filterable" data-sort="surname" data-filter="surname">
+                            Surname
+                            <span class="sort-icon">⇅</span>
+                            <span class="filter-icon" title="Filter">⌕</span>
+                        </th>
+                        <th class="sortable" data-sort="age">Age <span class="sort-icon">⇅</span></th>
+                        <th class="sortable filterable" data-sort="position" data-filter="position">
+                            Position
+                            <span class="sort-icon">⇅</span>
+                            <span class="filter-icon" title="Filter">⌕</span>
+                        </th>
+                        <th class="sortable" data-sort="salary">Salary <span class="sort-icon">⇅</span></th>
+                        <th class="sortable" data-sort="estimatedPayment">Estimated Payment <span class="sort-icon">⇅</span></th>
+                        <th class="sortable filterable" data-sort="projectId" data-filter="projectId">
+                            Project
+                            <span class="sort-icon">⇅</span>
+                            <span class="filter-icon" title="Filter">⌕</span>
+                        </th>
+                        <th class="sortable" data-sort="projectedIncome">Projected Income <span class="sort-icon">⇅</span></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="add-employee-panel" class="side-panel-right">
+        <h2>Add New Employee</h2>
+        <form id="add-employee-form">
+            <label for="name">Name: *</label>
+            <input type="text" id="name" name="name" required="" minlength="3" pattern="[A-Za-z\s]+" title="Name must be at least 3 characters and contain only letters">
+            <span class="error-message" id="name-error">Name must be at least 3 characters and contain only
+                letters</span>
+
+            <label for="surname">Surname: *</label>
+            <input type="text" id="surname" name="surname" required="" minlength="3" pattern="[A-Za-z\s]+" title="Surname must be at least 3 characters and contain only letters">
+            <span class="error-message" id="surname-error">Surname must be at least 3 characters and contain only
+                letters</span>
+
+            <label for="dob">Date of Birth: *</label>
+            <input type="date" id="dob" name="dob" required="" title="Date of birth is required">
+            <span class="error-message" id="dob-error">You must be at least 18 years old</span>
+
+            <label for="position">Position: *</label>
+            <select id="position" name="position" required="">
+                <option value="">Select position</option>
+                <option value="Junior">Junior</option>
+                <option value="Middle">Middle</option>
+                <option value="Senior">Senior</option>
+                <option value="Lead">Lead</option>
+                <option value="Architect">Architect</option>
+                <option value="BO">BO</option>
+            </select>
+            <span class="error-message" id="position-error">Please select a position</span>
+
+            <label for="salary">Salary: *</label>
+            <input type="number" id="salary" name="salary" required="" min="0.01" step="0.01" title="Salary must be greater than 0">
+            <span class="error-message" id="salary-error">Salary must be greater than 0</span>
+
+            <div class="form-buttons">
+                <button type="submit" id="add-btn-form" disabled="">Add</button>
+                <button type="button" id="cancel-btn-form">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div id="add-project-panel" class="side-panel-right">
+        <h2>Add New Project</h2>
+        <form id="add-project-form">
+            <label for="project-name">Project Name: *</label>
+            <input type="text" id="project-name" name="project-name" required="" minlength="3" pattern="[A-Za-z0-9\s]+" title="Project name must be at least 3 characters">
+            <span class="error-message" id="project-name-error">Project name must be at least 3 characters</span>
+
+            <label for="company-name">Company Name: *</label>
+            <input type="text" id="company-name" name="company-name" required="" minlength="2" pattern="[A-Za-z0-9\s]+" title="Company name must be at least 2 characters">
+            <span class="error-message" id="company-name-error">Company name must be at least 2 characters</span>
+
+            <label for="project-budget">Budget: *</label>
+            <input type="number" id="project-budget" name="project-budget" required="" min="0.01" step="0.01" title="Budget must be greater than 0">
+            <span class="error-message" id="project-budget-error">Budget must be greater than 0</span>
+
+            <label for="employee-capacity">Employee Capacity: *</label>
+            <input type="number" id="employee-capacity" name="employee-capacity" required="" min="1" step="1" title="Employee capacity must be at least 1">
+            <span class="error-message" id="employee-capacity-error">Employee capacity must be at least 1</span>
+
+            <div class="form-buttons">
+                <button type="submit" id="add-project-btn-form" disabled="">Add</button>
+                <button type="button" id="cancel-project-btn-form">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Seed Data Popup -->
+    <div id="seed-data-backdrop" class="popup-backdrop" style="display: none;"></div>
+    <div id="seed-data-popup" class="seed-data-popup" style="display: none;">
+        <div class="popup-header">
+            <h2>Seed Data from Month</h2>
+            <button class="close-popup-btn">×</button>
+        </div>
+        <div class="popup-content">
+            <p>Select a month to copy its data to the current month (<span id="current-month-display"></span>):</p>
+            <table id="seed-data-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Projects</th>
+                        <th>Employees</th>
+                        <th>Total Est. Income</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="seed-data-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+   <script src="js/script.js"></script>
 </body>
 </html>

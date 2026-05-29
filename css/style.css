@@ -1,0 +1,1338 @@
+/* =========================================
+   OUTSOURCE DASHBOARD — СТИЛИ
+   Чистый, читаемый код без излишеств
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    overflow: hidden;
+}
+
+/* ===== БОКОВАЯ ПАНЕЛЬ ===== */
+#side-panel {
+    width: 250px;
+    background-color: #34495e;
+    color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex-shrink: 0;
+    transition: width 0.3s ease;
+    overflow-y: auto;
+}
+
+#side-panel.collapsed {
+    width: 0;
+    padding: 0;
+    border: none;
+}
+
+#toggle-button {
+    border: none;
+    color: #ecf0f1;
+    background-color: #2c3e50;
+    font-size: 24px;
+    cursor: pointer;
+    align-self: flex-start;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: 0.2s;
+}
+
+#toggle-button:hover {
+    background-color: #576c82;
+}
+
+#open-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #34495e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    z-index: 1000;
+    border-radius: 4px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Элементы сайдбара */
+.month-selector {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #465c71;
+    padding-bottom: 20px;
+}
+
+.month-selector h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.month-select, 
+.year-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background: #465c71;
+    color: white;
+    border: 1px solid #576c82;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #bdc3c7;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.nav-item:hover {
+    background-color: #465c71;
+    color: white;
+}
+
+.nav-item.active {
+    background-color: #2c3e50;
+    color: white;
+    font-weight: bold;
+}
+
+/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+#main-content {
+    flex: 1 1 0%;
+    min-width: 0;
+    padding: 40px;
+    overflow: auto;
+    background-color: #ecf0f1;
+}
+
+#projects-content,
+#employees-content {
+    width: 100%;
+    min-width: 0;
+}
+
+#add-employee-panel,
+#add-project-panel,
+#seed-data-popup {
+    display: none;
+}
+
+/* Заголовки и кнопки */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.content-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+    border-bottom: 2px solid #bdc3c7;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.add-btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.add-btn:hover {
+    background-color: #219150;
+}
+
+/* ===== ТАБЛИЦЫ ===== */
+#projects-table, 
+#employees-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    table-layout: fixed;
+    min-width: 900px;
+}
+
+thead {
+    background-color: #34495e;
+    color: white;
+}
+
+th, td {
+    padding: 16px;
+    text-align: left;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+th {
+    font-weight: 600;
+    font-size: 14px;
+    border-right: 1px solid #465c71;
+}
+
+th:last-child {
+    border-right: none;
+}
+
+td {
+    border-bottom: 1px solid #ecf0f1;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.sort-icon, 
+.filter-icon {
+    margin-left: 5px;
+    opacity: 0.6;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* Итоговая строка */
+.total-income-info {
+    font-size: 18px;
+    margin-top: 24px;
+    text-align: left;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.total-amount {
+    color: #27ae60;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.positive-income { color: #27ae60 !important; }
+.negative-income { color: #e74c3c !important; }
+
+/* ===== ПРАВАЯ ПАНЕЛЬ (ФОРМЫ) ===== */
+#add-project-panel,
+#add-employee-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 450px;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+#add-project-panel h2,
+#add-employee-panel h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+#add-project-form,
+#add-employee-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#add-project-form label,
+#add-employee-form label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #34495e;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#add-project-form input,
+#add-project-form select,
+#add-employee-form input,
+#add-employee-form select {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    outline: none;
+    background: #fff;
+    transition: border-color 0.2s;
+}
+
+#add-project-form input:focus,
+#add-employee-form input:focus {
+    border-color: #3498db;
+}
+
+input.error, select.error {
+    border-color: #e74c3c !important;
+    background-color: #fdf2f2;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    font-weight: 500;
+    display: none;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.form-buttons button {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#add-btn-form,
+#add-project-btn-form {
+    background-color: #27ae60;
+    color: white;
+}
+
+#add-btn-form:hover:not(:disabled),
+#add-project-btn-form:hover:not(:disabled) {
+    background-color: #219150;
+}
+
+#add-btn-form:disabled,
+#add-project-btn-form:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+#cancel-btn-form,
+#cancel-project-btn-form {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+}
+
+#cancel-btn-form:hover,
+#cancel-project-btn-form:hover {
+    background-color: #d5dbdb;
+}
+
+/* ===== SEED DATA POPUP ===== */
+.popup-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.seed-data-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    z-index: 1000;
+    min-width: 800px;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.popup-header h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.close-popup-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #7f8c8d;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.close-popup-btn:hover {
+    background: #ecf0f1;
+    color: #2c3e50;
+}
+
+.popup-content p {
+    margin-bottom: 20px;
+    color: #7f8c8d;
+}
+
+#seed-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#seed-data-table th,
+#seed-data-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+#seed-data-table th {
+    background: #34495e;
+    color: white;
+    font-weight: 600;
+}
+
+#current-month-display {
+    color: #3498db;
+    font-weight: 600;
+}
+
+/* ===== ФИЛЬТРЫ ===== */
+#project-filters-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-chip {
+    background: #ecf0f1;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.remove-filter {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 4px;
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.2s;
+}
+
+.remove-filter:hover {
+    color: #c0392b;
+    transform: scale(1.2);
+}
+
+.filter-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(44, 62, 80, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 998;
+}
+
+.filter-popup {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    width: 300px;
+    z-index: 999;
+    overflow: hidden;
+}
+
+.filter-popup-header {
+    background: #34495e;
+    color: white;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.filter-popup-body {
+    padding: 18px;
+}
+
+.filter-popup-body input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ecf0f1;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.filter-popup-body input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.filter-popup-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.btn-apply, .btn-clear, .btn-cancel {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-apply { background: #27ae60; color: white; }
+.btn-apply:hover { background: #219150; }
+.btn-clear { background: #e74c3c; color: white; }
+.btn-clear:hover { background: #c0392b; }
+.btn-cancel { background: #95a5a6; color: white; }
+.btn-cancel:hover { background: #7f8c8d; }
+
+/* ===== POPUP: НАЗНАЧЕНИЕ ===== */
+/* ===== POPUP: НАЗНАЧЕНИЕ ===== */
+.assign-backdrop {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(44, 62, 80, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 998;
+}
+
+.assign-popup {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 450px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.assign-popup-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #ecf0f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.assign-popup-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.close-assign-popup {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #95a5a6;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-assign-popup:hover {
+    color: #2c3e50;
+}
+
+.assign-popup-body {
+    padding: 24px;
+}
+
+.assign-capacity-info {
+    background: #ecf0f1;
+    border-left: 4px solid #3498db;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.assign-capacity-info div {
+    margin-bottom: 4px;
+}
+
+.assign-capacity-info div:last-child {
+    margin-bottom: 0;
+}
+
+.available-val {
+    color: #27ae60;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #ecf0f1;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.slider-group {
+    margin-bottom: 24px;
+}
+
+.slider-group label {
+    display: block;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+input[type=range] {
+    width: 100%;
+    margin: 8px 0;
+    -webkit-appearance: none;
+    background: transparent;
+    height: 4px;
+    border-radius: 2px;
+    background: #d5dbdb;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #3498db;
+    cursor: pointer;
+    margin-top: -7px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.2s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    background: #2980b9;
+    transform: scale(1.1);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #d5dbdb;
+    border-radius: 2px;
+}
+
+.slider-label {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-top: 4px;
+}
+
+.assign-summary {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.summary-row:last-child {
+    margin-bottom: 0;
+}
+
+.summary-row strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.validation-msg {
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 20px;
+    text-align: center;
+}
+
+.assign-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-assign-confirm {
+    background: #27ae60;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.btn-assign-confirm:hover:not(:disabled) {
+    background: #219150;
+    transform: translateY(-1px);
+}
+
+.btn-assign-confirm:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.btn-assign-cancel {
+    background: #95a5a6;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.btn-assign-cancel:hover {
+    background: #7f8c8d;
+}
+
+/* ===== POPUP: НАЗНАЧЕНИЯ СОТРУДНИКА ===== */
+.assignments-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 1000px;
+    max-height: 80vh;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.assignments-popup-header {
+    background: #34495e;
+    color: white;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+    flex-shrink: 0;
+}
+
+.assignments-popup-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.close-assignments-popup {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.close-assignments-popup:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.assignments-popup-body {
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.assignments-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.assignments-table thead th {
+    background: #34495e;
+    color: white;
+    padding: 14px 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid #2c3e50;
+    z-index: 1;
+}
+
+.assignments-table tbody td {
+    padding: 14px 15px;
+    border-bottom: 1px solid #ecf0f1;
+    font-size: 14px;
+}
+
+.assignments-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.assignments-table tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.assignments-table tbody tr:nth-child(even):hover {
+    background: #ecf0f1;
+}
+
+.proj-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.proj-link:hover {
+    text-decoration: underline;
+}
+
+.btn-edit-assign,
+.btn-unassign {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: 6px;
+}
+
+.btn-edit-assign {
+    background: #3498db;
+    color: white;
+}
+
+.btn-edit-assign:hover {
+    background: #2980b9;
+}
+
+.btn-unassign {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-unassign:hover {
+    background: #c0392b;
+}
+
+/* ===== POPUP: СОТРУДНИКИ ПРОЕКТА ===== */
+.proj-emp-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(44, 62, 80, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 998;
+}
+
+.proj-emp-popup-full {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 1100px;
+    max-height: 80vh;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+}
+
+.proj-emp-header-full {
+    background: #34495e;
+    color: white;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+}
+
+.proj-emp-header-full h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.close-proj-emp-popup {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.close-proj-emp-popup:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.proj-emp-body-full {
+    padding: 0;
+    overflow: auto;
+    flex: 1;
+}
+
+.proj-emp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.proj-emp-table thead th {
+    background: #34495e;
+    color: white;
+    padding: 14px 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid #2c3e50;
+}
+
+.proj-emp-table tbody td {
+    padding: 14px 15px;
+    border-bottom: 1px solid #ecf0f1;
+    font-size: 14px;
+}
+
+.proj-emp-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.proj-emp-table tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.proj-emp-table tbody tr:nth-child(even):hover {
+    background: #ecf0f1;
+}
+
+.proj-emp-table tfoot td {
+    background: #ecf0f1;
+    font-weight: 700;
+    border-top: 2px solid #bdc3c7;
+    padding: 14px 15px;
+}
+
+.emp-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.emp-link:hover {
+    text-decoration: underline;
+}
+
+.btn-edit-assign-sm,
+.btn-unassign-sm {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: 8px;
+}
+
+.btn-edit-assign-sm {
+    background: #3498db;
+    color: white;
+}
+
+.btn-edit-assign-sm:hover {
+    background: #2980b9;
+}
+
+.btn-unassign-sm {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-unassign-sm:hover {
+    background: #c0392b;
+}
+
+/* ===== КАЛЕНДАРЬ ОТПУСКОВ ===== */
+.calendar-backdrop {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(44, 62, 80, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 998;
+}
+
+.calendar-popup {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 16px; /* Более круглые углы как в демо */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    width: 90%;
+    max-width: 420px;
+    z-index: 999;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* --- Header --- */
+.calendar-header {
+    padding: 24px 24px 15px 24px;
+    border-bottom: 1px solid #ecf0f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.calendar-title-group h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.calendar-subtitle {
+    display: block;
+    margin-top: 6px;
+    font-size: 14px;
+    color: #7f8c8d;
+    font-weight: 500;
+}
+
+.cal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #95a5a6;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.cal-close:hover {
+    color: #2c3e50;
+}
+
+/* --- Grid --- */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    padding: 20px;
+}
+
+.cal-weekday {
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+    color: #2c3e50;
+    padding: 8px 0;
+    background: #ecf0f1;
+    border-radius: 6px;
+}
+
+.cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+    border: 1px solid #ecf0f1;
+    color: #2c3e50;
+    position: relative;
+}
+
+.cal-day:hover:not(.empty) {
+    background: #ecf0f1;
+    border-color: #bdc3c7;
+}
+
+.cal-day.empty {
+    background: transparent;
+    border: none;
+    cursor: default;
+}
+
+/* Выходные */
+.cal-day.weekend {
+    color: #e74c3c;
+    background: #fdf2f2;
+    border-color: #f5c6cb;
+}
+
+/* Сегодняшний день */
+.cal-day.today {
+    background: #27ae60;
+    color: white;
+    border-color: #27ae60;
+    font-weight: 700;
+}
+
+/* День отпуска (Оранжевый) */
+.cal-day.vacation {
+    background: #e67e22;
+    color: white;
+    border-color: #e67e22;
+    font-weight: 700;
+}
+
+/* Стрелочка на отпуске */
+.vac-arrow {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+/* --- Footer --- */
+.calendar-footer {
+    padding: 0 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.working-box {
+    background: #e8f8f5;
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.vacation-box {
+    background: #fef5e7;
+    color: #d35400;
+    font-weight: 600;
+}
+
+.btn-set-vacation {
+    background: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-set-vacation:hover {
+    background: #d35400;
+}
+/* ===== INLINE РЕДАКТИРОВАНИЕ ===== */
+.salary-cell {
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.salary-cell:hover {
+    background: #fff3cd;
+}
+
+.salary-cell input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 6px;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.position-select {
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.position-select:hover {
+    border-color: #3498db;
+    background: #ecf0f1;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 768px) {
+    .assignments-popup,
+    .proj-emp-popup-full,
+    .calendar-popup {
+        width: 95%;
+        max-width: none;
+    }
+    
+    .assign-popup {
+        width: 95%;
+        max-width: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    #side-panel {
+        width: 200px;
+    }
+}
